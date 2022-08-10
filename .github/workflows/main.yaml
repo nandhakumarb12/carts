@@ -30,22 +30,19 @@ jobs:
  
     #
     #
-    # Build
-    - name: Build jar files
-      run: ./scripts/build.sh
-
-    #
-    #
-    # Push to dockerhub
+    - name: Login to DockerHub
+      run: |
+          echo "${{ secrets.DOCKERHUB_PASS }}" | docker login -u "nandha512" --password-stdin
     - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
+      uses: mr-smithers-excellent/docker-build-push@v5
       if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/master'
       with:
-        username: ${{ secrets.DOCKER_USER }}
-        password: ${{ secrets.DOCKER_PASS }}
-        repository: ${{ env.GROUP }}/${{ env.REPO }}
-        tag_with_ref: true
-        tag_with_sha: true
-        path: docker/carts
-        dockerfile: docker/carts/Dockerfile
-
+         dockerfile: ./Dockerfile
+        # path: target/
+         registry: docker.io
+         image: nandha512/carts
+         
+         #push: true
+         #tags: nandha512/sockshop:shipping
+          #tag_with_ref:true
+          #tag_with_sha:true
