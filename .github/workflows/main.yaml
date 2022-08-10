@@ -44,6 +44,6 @@ jobs:
          image: nandha512/carts
          
          #push: true
-         #tags: nandha512/sockshop:shipping
+         #tags: nandha512/carts
           #tag_with_ref:true
           #tag_with_sha:true
